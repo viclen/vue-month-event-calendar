@@ -63,7 +63,7 @@
                 v-on:click="showEvent(i)"
                 v-html="e.title"
               ></button>
-              <button class="btn btn-delete-event" v-on:click="deleteEvent(e)">&times;</button>
+              <button class="btn btn-delete-event" v-on:click="deleteEvent(e)" v-if="deletable">&times;</button>
               <small class="event-time">{{ e.time }}</small>
             </div>
             <div class="event-description" v-html="e.desc" v-if="e.show"></div>
@@ -76,7 +76,7 @@
 
 <script>
 export default {
-  props: ["events", "onDeleteEvent", "language", "color", "translation"],
+  props: ["events", "onDeleteEvent", "language", "color", "translation", "showDelete"],
   name: "event-calendar",
   data() {
     return {
@@ -107,7 +107,8 @@ export default {
         events: "Events", // plural
         day: "Day"
       },
-      mainColor: "normal"
+      mainColor: "normal",
+      deletable: true,
     };
   },
   mounted() {
@@ -142,6 +143,10 @@ export default {
           day: "Dia"
         };
       }
+    }
+
+    if(this.showDelete != undefined){
+      this.deletable = this.showDelete;
     }
 
     if (this.color) {
@@ -237,7 +242,7 @@ export default {
       if (this.onDeleteEvent != undefined) {
         var dayIndex = e.dayIndex;
         var eventIndex = this.dates[dayIndex].events.indexOf(e);
-        e.dayIndex = undefined;
+        delete e.dayIndex;
         this.onDeleteEvent(e, () => {
           this.dates[dayIndex].events.splice(eventIndex, 1);
           this.$forceUpdate();

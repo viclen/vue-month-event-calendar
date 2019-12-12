@@ -129,5 +129,41 @@ See the code for more.
 ```
 ![green](http://autosavestudio.com/vue-month-event-calendar/green.png)
 
+## Event Deletion
+For each event shown in the calendar, there is an '&times;' button for deleting that event.
+
+If you don't want events to be deletable, use the :showDelete property:
+```
+<event-calendar :showDelete="false" />
+```
+
+### onDeleteEvent function
+If you want to make it possible to delete an event, you shoud inform the onDeleteEvent property.
+
+The parameters of that function are: 
+- e -> the event to be deleted, which comes from the :events array;
+- callback -> this is the function that will remove the event from the calendar. You must call this if you want to update the events in the calendar after you delete it.
+```
+<event-calendar :onDeleteEvent="(e, callback) => myDeleteFunction(e, callback)" />
+
+<script>
+export default {
+  methods: {
+    // the event (e) here is exactly the same from the events array.
+    myDeleteFunction(e, callback){
+      // do some async requests
+      axios.get('/delete').then(() => {
+        // if the event was successfully deleted and the callback exists
+        if(eventDeleted && callback){
+          // executes the callback
+          callback();
+        }
+      });
+    }
+  }
+}
+</script>
+```
+
 ## Vue JS configuration reference
 See [Configuration Reference](https://cli.vuejs.org/config/).
