@@ -1,6 +1,6 @@
 {
   "name": "@viclen/vue-month-event-calendar",
-  "version": "0.1.4",
+  "version": "0.1.6",
   "private": false,
   "license" : "BSD-3-Clause",
   "scripts": {

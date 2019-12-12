@@ -6,7 +6,11 @@ GitHub: https://github.com/viclen/vue-month-event-calendar
 
 ## Library installation
 ```
+// npm
 npm i @viclen/vue-month-event-calendar --save
+
+// yarn
+yarn add @viclen/vue-month-event-calendar
 ```
 
 ## Basic Usage
