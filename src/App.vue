@@ -1,28 +1,37 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <event-calendar :events="ev" :color="'blue'" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
-  name: 'app',
+  name: "app",
   components: {
-    HelloWorld
+  },
+  data() {
+    return {
+      ev: [
+        {
+          date: new Date(),
+          title: "Teste",
+          desc: "Description of the event with many many lines, 123 test."
+        },
+        {
+          date: new Date(2019,11,12,10,10,10),
+          title: "Teste3",
+          desc: "Description3 of the event with many many lines, 123 test."
+        },
+        {
+          date: new Date(2019,11,10,10,10,0),
+          title: "Teste 2",
+          desc: "Descriptionsdsd of the event with many many lines, 123 test."
+        }
+      ]
+    };
   }
-}
+};
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
