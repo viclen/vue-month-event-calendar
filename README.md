@@ -1,5 +1,7 @@
 # vue-month-event-calendar
 
+Npm: https://www.npmjs.com/package/@viclen/vue-month-event-calendar
+
 ## Project setup
 ```
 yarn install
