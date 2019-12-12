@@ -1,6 +1,7 @@
 # vue-month-event-calendar
 
 Npm: https://www.npmjs.com/package/@viclen/vue-month-event-calendar
+
 GitHub: https://github.com/viclen/vue-month-event-calendar
 
 ## Library installation
