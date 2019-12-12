@@ -93,6 +93,12 @@ You may also change the main color of the calendar.
 To customize the color, you may just write them into the :color property as a string.
 See the code for more.
 
+#### Normal
+```
+<event-calendar :events="eventList" :color="'normal'" />
+```
+![normal](http://autosavestudio.com/vue-month-event-calendar/normal.png)
+
 #### Blue
 ```
 <event-calendar :events="eventList" :color="'blue'" />
