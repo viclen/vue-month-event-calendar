@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <event-calendar :events="ev" :color="'blue'" />
+    <event-calendar :events="eventList" :color="'black'" />
   </div>
 </template>
 
@@ -11,21 +11,21 @@ export default {
   },
   data() {
     return {
-      ev: [
-        {
-          date: new Date(),
-          title: "Teste",
-          desc: "Description of the event with many many lines, 123 test."
-        },
+      eventList: [
         {
           date: new Date(2019,11,12,10,10,10),
-          title: "Teste3",
-          desc: "Description3 of the event with many many lines, 123 test."
+          title: "First event",
+          desc: "We can set date as a date object or as a string, like the next one."
+        },
+        {
+          date: "2019-12-25 10:00",
+          title: "Christmas",
+          desc: "An annual festival commemorating the birth of Jesus Christ... (<a href='https://en.wikipedia.org/wiki/Christmas'>Wikipedia</a>)"
         },
         {
           date: new Date(2019,11,10,10,10,0),
-          title: "Teste 2",
-          desc: "Descriptionsdsd of the event with many many lines, 123 test."
+          title: "HTML Description",
+          desc: "I can create <a href=''>links</a> within the <b>description</b>."
         }
       ]
     };

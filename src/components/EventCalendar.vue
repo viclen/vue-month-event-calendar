@@ -1,6 +1,6 @@
 <template>
   <div class="body">
-    <div class="row" v-bind:class="info.color">
+    <div class="row" v-bind:class="mainColor">
       <div class="column-left">
         <div class="month">
           <ul>
@@ -58,7 +58,11 @@
           <p class="text-center" v-if="!selectedDay.events.length">{{ info.noEvent }}</p>
           <div class="event-card mb-2" v-for="(e,i) in selectedDay.events" v-bind:key="i">
             <div class="event-title p-0" v-bind:id="'heading' + i">
-              <button class="btn btn-link m-0 mt-1 w-100" v-on:click="showEvent(i)" v-html="e.title"></button>
+              <button
+                class="btn btn-link m-0 mt-1 w-100"
+                v-on:click="showEvent(i)"
+                v-html="e.title"
+              ></button>
               <button class="btn btn-delete-event" v-on:click="deleteEvent(e)">&times;</button>
               <small class="event-time">{{ e.time }}</small>
             </div>
@@ -72,8 +76,8 @@
 
 <script>
 export default {
-  props: ["events", "onDeleteEvent", "language", "color"],
-  name: "month-calendar",
+  props: ["events", "onDeleteEvent", "language", "color", "translation"],
+  name: "event-calendar",
   data() {
     return {
       dates: [],
@@ -83,40 +87,65 @@ export default {
       selectedDay: { events: [] },
       dayScheduleStyle: {},
       info: {
-        noEvent: "Nenhum evento nesse dia.",
+        noEvent: "No events today.",
         months: [
-          "Janeiro",
-          "Fevereiro",
-          "Março",
-          "Abril",
-          "Maio",
-          "Junho",
-          "Julho",
-          "Agosto",
-          "Setembro",
-          "Outubro",
-          "Novembro",
-          "Dezembro"
+          "January",
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+          "August",
+          "September",
+          "October",
+          "November",
+          "December"
         ],
-        weekDays: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"],
-        event: "Evento",
-        events: "Eventos",
-        day: "Dia",
-        color: "normal"
-      }
+        weekDays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+        event: "Event", // singular
+        events: "Events", // plural
+        day: "Day"
+      },
+      mainColor: "normal"
     };
   },
   mounted() {
-    if (this.language) {
+    if (this.translation) {
       for (var property in this.info) {
-        if (this.language[property]) {
-          this.info[property] = this.language[property];
+        if (this.translation[property]) {
+          this.info[property] = this.translation[property];
         }
+      }
+    }
+    if (this.language) {
+      if (this.language == "pt") {
+        this.info = {
+          noEvent: "Nenhum evento nesse dia.",
+          months: [
+            "Janeiro",
+            "Fevereiro",
+            "Março",
+            "Abril",
+            "Maio",
+            "Junho",
+            "Julho",
+            "Agosto",
+            "Setembro",
+            "Outubro",
+            "Novembro",
+            "Dezembro"
+          ],
+          weekDays: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"],
+          event: "Evento",
+          events: "Eventos",
+          day: "Dia"
+        };
       }
     }
 
     if (this.color) {
-      this.info.color = this.color;
+      this.mainColor = this.color;
     }
 
     setTimeout(() => {
