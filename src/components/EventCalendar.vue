@@ -63,7 +63,11 @@
                 v-on:click="showEvent(i)"
                 v-html="e.title"
               ></button>
-              <button class="btn btn-delete-event" v-on:click="deleteEvent(e)" v-if="deletable">&times;</button>
+              <button
+                class="btn btn-delete-event"
+                v-on:click="deleteEvent(e)"
+                v-if="deletable"
+              >&times;</button>
               <small class="event-time">{{ e.time }}</small>
             </div>
             <div class="event-description" v-html="e.desc" v-if="e.show"></div>
@@ -76,7 +80,14 @@
 
 <script>
 export default {
-  props: ["events", "onDeleteEvent", "language", "color", "translation", "showDelete"],
+  props: [
+    "events",
+    "onDeleteEvent",
+    "language",
+    "color",
+    "translation",
+    "showDelete"
+  ],
   name: "event-calendar",
   data() {
     return {
@@ -108,7 +119,7 @@ export default {
         day: "Day"
       },
       mainColor: "normal",
-      deletable: true,
+      deletable: true
     };
   },
   mounted() {
@@ -145,7 +156,7 @@ export default {
       }
     }
 
-    if(this.showDelete != undefined){
+    if (this.showDelete != undefined) {
       this.deletable = this.showDelete;
     }
 
@@ -240,11 +251,17 @@ export default {
     },
     deleteEvent(e) {
       if (this.onDeleteEvent != undefined) {
-        var dayIndex = e.dayIndex;
-        var eventIndex = this.dates[dayIndex].events.indexOf(e);
-        delete e.dayIndex;
-        this.onDeleteEvent(e, () => {
-          this.dates[dayIndex].events.splice(eventIndex, 1);
+        var toDelete = {};
+        for (var key in e) {
+          toDelete[key] = e[key];
+        }
+        delete toDelete.dayNumber;
+        var dayNumber = e.dayNumber;
+        var eventIndex = this.findDay(dayNumber).events.indexOf(e);
+        var dayToDeleteFrom = this.findDay(dayNumber);
+
+        this.onDeleteEvent(toDelete, () => {
+          dayToDeleteFrom.events.splice(eventIndex, 1);
           this.$forceUpdate();
         });
       }
@@ -264,6 +281,13 @@ export default {
         return capital + "" + rest;
       } else {
         return str;
+      }
+    },
+    findDay(number) {
+      for (var i = 0; i < this.dates.length; i++) {
+        if (this.dates[i].number == number) {
+          return this.dates[i];
+        }
       }
     }
   }
